@@ -1,19 +1,23 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import LastWinnerPage from './pages/LastWinnerPage';
 import PlayersPage from './pages/PlayersPage';
+import Navbar from './Navbar';
 
 function App() {
   return (
     <Router>
-      <div style={{ padding: '2rem', fontFamily: 'Arial, sans-serif' }}>
+      <div style={{
+        width: '100%',
+        maxWidth: '800px',
+        background: '#ffffff',
+        padding: '2rem',
+        borderRadius: '12px',
+        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+        textAlign: 'center'
+      }}>
         <h1>🎟️ Lottery DApp</h1>
-
-        <nav style={{ marginBottom: '2rem' }}>
-          <Link to="/" style={{ marginRight: '1rem' }}>🏠 Home</Link>
-          <Link to="/players" style={{ marginRight: '1rem' }}>👥 Players</Link>
-          <Link to="/last-winner">🥇 Last Winner</Link>
-        </nav>
+        <Navbar />
 
         <Routes>
           <Route path="/" element={<HomePage />} />
