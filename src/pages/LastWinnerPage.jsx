@@ -39,10 +39,10 @@ function LastWinnerPage() {
     }}>
       <h3>🎉 Last Winner</h3>
       <p><strong>Address:</strong> <code>{lastWinner}</code></p>
-      <p><strong>Prize:</strong> {lastPrize} ETH</p>
     </div>
   );
 }
 
 export default LastWinnerPage;
+
 
