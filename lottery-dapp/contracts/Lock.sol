@@ -1,34 +1,52 @@
-// SPDX-License-Identifier: UNLICENSED
-pragma solidity ^0.8.28;
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.18;
 
-// Uncomment this line to use console.log
-// import "hardhat/console.sol";
+contract Lottery {
+    address public manager;
+    address[] public players;
+    address public lastWinner;
 
-contract Lock {
-    uint public unlockTime;
-    address payable public owner;
-
-    event Withdrawal(uint amount, uint when);
-
-    constructor(uint _unlockTime) payable {
-        require(
-            block.timestamp < _unlockTime,
-            "Unlock time should be in the future"
-        );
-
-        unlockTime = _unlockTime;
-        owner = payable(msg.sender);
+    constructor() {
+        manager = msg.sender;
     }
 
-    function withdraw() public {
-        // Uncomment this line, and the import of "hardhat/console.sol", to print a log in your terminal
-        // console.log("Unlock time is %o and block timestamp is %o", unlockTime, block.timestamp);
+    function enter() public payable {
+        require(msg.value >= .01 ether, "Minimum entry: 0.01 ETH");
+        players.push(msg.sender);
+    }
 
-        require(block.timestamp >= unlockTime, "You can't withdraw yet");
-        require(msg.sender == owner, "You aren't the owner");
+    function getPlayers() public view returns (address[] memory) {
+        return players;
+    }
 
-        emit Withdrawal(address(this).balance, block.timestamp);
+    function getBalance() public view returns (uint256) {
+        return address(this).balance;
+    }
 
-        owner.transfer(address(this).balance);
+    function pickWinner() public restricted {
+        require(players.length > 0, "No players to pick from.");
+
+        uint index = uint(
+            keccak256(
+                abi.encodePacked(block.timestamp, block.prevrandao, players.length)
+            )
+        ) % players.length;
+
+        address winner = players[index];
+        payable(winner).transfer(address(this).balance);
+        lastWinner = winner;  
+    
+        // Reset for next round
+        for (uint i = 0; i < players.length; i++) {
+            delete players[i];
+        }
+
+
+    }
+
+    modifier restricted() {
+        require(msg.sender == manager, "Only manager can call this");
+        _;
     }
 }
+

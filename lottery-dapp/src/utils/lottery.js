@@ -1,6 +1,7 @@
 import { ethers } from 'ethers';
 // utils/lottery.js
-const contractAddress = "0x5fbdb2315678afecb367f032d93f642f64180aa3"; // Your deployed contract address
+// Deploy contract addres after run "npx hardhat run scripts/deploy.cjs --network localhost"
+const contractAddress = "0x5fbdb2315678afecb367f032d93f642f64180aa3"; 
 const abi = [
   {
     "inputs": [],
