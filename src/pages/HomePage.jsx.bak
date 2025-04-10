@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
-import { useNavigate } from 'react-router-dom';
 import getContract from '../utils/lottery';
 
 function HomePage() {
@@ -9,8 +8,9 @@ function HomePage() {
   const [balance, setBalance] = useState('0');
   const [isConnected, setIsConnected] = useState(false);
   const [error, setError] = useState('');
-
-  const navigate = useNavigate();
+  const [winnerAmount, setWinnerAmount] = useState('');
+  const [winnerAddress, setWinnerAddress] = useState('');
+  const [showWinnerModal, setShowWinnerModal] = useState(false);
 
   const loadBlockchainData = async () => {
     if (!window.ethereum) {
@@ -65,19 +65,16 @@ function HomePage() {
 
       const potBeforePicking = await contract.getBalance();
       const formattedPot = ethers.formatEther(potBeforePicking);
+      setWinnerAmount(formattedPot);
 
       const tx = await contract.pickWinner();
       await tx.wait();
 
       const winner = await contract.lastWinner();
+      setWinnerAddress(winner);
 
-      // Navigate to LastWinnerPage with winner data
-      navigate('/last-winner', {
-        state: {
-          winnerAddress: winner,
-          winnerAmount: formattedPot,
-        },
-      });
+      setShowWinnerModal(true);
+      loadBlockchainData();
     } catch (err) {
       console.error("Error picking winner:", err);
       alert("❌ Only the manager can pick the winner.");
@@ -95,6 +92,37 @@ function HomePage() {
 
   return (
     <>
+      {showWinnerModal && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          backgroundColor: 'rgba(0,0,0,0.75)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 999
+        }}>
+          <div style={{
+            backgroundColor: '#fff',
+            padding: '2rem',
+            borderRadius: '10px',
+            textAlign: 'center',
+            maxWidth: '450px',
+            boxShadow: '0 4px 10px rgba(0,0,0,0.3)'
+          }}>
+            <h2>🎉 Winner Picked!</h2>
+            <p><strong>Address:</strong> {winnerAddress}</p>
+            <p><strong>Amount:</strong> {winnerAmount} ETH</p>
+            <button onClick={() => setShowWinnerModal(false)} style={{ marginTop: '1rem' }}>
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+
       {!isConnected ? (
         <>
           <p><strong>Account:</strong> Not connected</p>
