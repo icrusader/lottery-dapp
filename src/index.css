@@ -5,7 +5,7 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #ffffff; /* Default to white background for light mode */
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -25,11 +25,14 @@ a:hover {
 body {
   margin: 0;
   display: flex;
-  align-items: center; /* vertical center */
-  justify-content: center; /* horizontal center */
+  flex-direction: column; /* Align items vertically */
+  align-items: center; /* Horizontal center */
+  justify-content: flex-start; /* Start from the top */
   min-width: 320px;
-  min-height: 100vh;
-  background-color: #242424; /* or let prefers-color-scheme control it */
+  min-height: 100vh; /* Full viewport height */
+  background-color: #ffffff; /* White background for light mode */
+  color: #333; /* Dark text color for readability */
+  padding-top: 2rem; /* Add some space from the top */
 }
 
 h1 {
@@ -44,7 +47,7 @@ button {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: #f9f9f9;
   cursor: pointer;
   transition: border-color 0.25s;
 }
@@ -58,13 +61,41 @@ button:focus-visible {
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    color: #213547; /* Dark text color for light mode */
+    background-color: #ffffff; /* White background for light mode */
+  }
+  body {
+    background-color: #ffffff; /* White background for light mode */
+    color: #333; /* Dark text for better contrast */
+  }
+  a {
+    color: #646cff; /* Default link color */
   }
   a:hover {
-    color: #747bff;
+    color: #747bff; /* Hover color for links */
   }
   button {
-    background-color: #f9f9f9;
+    background-color: #f9f9f9; /* Light button color */
   }
 }
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color: rgba(255, 255, 255, 0.87); /* Light text for dark mode */
+    background-color: #242424; /* Dark background for dark mode */
+  }
+  body {
+    background-color: #242424; /* Dark background for dark mode */
+    color: #fff; /* Light text for dark mode */
+  }
+  a {
+    color: #646cff; /* Default link color */
+  }
+  a:hover {
+    color: #747bff; /* Hover color for links */
+  }
+  button {
+    background-color: #1a1a1a; /* Dark button color */
+  }
+}
+

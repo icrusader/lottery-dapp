@@ -7,7 +7,7 @@ function LastWinnerPage() {
 
   return (
     <div style={{ padding: '2rem', textAlign: 'center' }}>
-      <h1>🎉 Last Winner</h1>
+      <h2>🎉 Last Winner</h2>
       {winnerAddress && winnerAmount ? (
         <>
           <p><strong>Address:</strong> {winnerAddress}</p>

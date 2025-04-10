@@ -1,8 +1,18 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  padding-top: 2rem; /* Adjusting padding to push content down a bit if needed */
+  padding-left: 2rem;
+  padding-right: 2rem;
+  background-color: white; /* Set background color to white */
+  color: #333; /* Set text color to dark gray to maintain contrast */
+}
+
+body {
+  background-color: white; /* Ensures the whole page background is white */
+  color: #333; /* Dark text color for good readability */
+  margin: 0;
+  font-family: Arial, sans-serif; /* Optional: Change to a clean font */
 }
 
 .logo {
@@ -11,9 +21,11 @@
   will-change: filter;
   transition: filter 300ms;
 }
+
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
+
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
@@ -40,6 +52,7 @@
 .read-the-docs {
   color: #888;
 }
+
 @keyframes pulse {
   0% {
     box-shadow: 0 0 15px rgba(76, 175, 80, 0.3);

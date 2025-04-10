@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
+import { useNavigate } from 'react-router-dom'; // Assuming you're using react-router for navigation
 import getContract from '../utils/lottery';
 
 function PlayersPage() {
   const [players, setPlayers] = useState([]);
+  const navigate = useNavigate();
 
   const loadPlayers = async () => {
     try {
@@ -33,6 +35,7 @@ function PlayersPage() {
           ))}
         </ul>
       )}
+      <button onClick={() => navigate('/')}>🏠 Back to Home</button>
     </div>
   );
 }
