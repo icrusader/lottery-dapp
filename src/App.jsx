@@ -16,7 +16,7 @@ function App() {
         boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
         textAlign: 'center'
       }}>
-        <h1>🎟️ Lottery DApp</h1>
+        <h1>🎟️ Lottery App</h1>
         <Navbar />
 
         <Routes>
