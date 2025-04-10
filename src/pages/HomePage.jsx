@@ -8,6 +8,9 @@ function HomePage() {
   const [balance, setBalance] = useState('0');
   const [isConnected, setIsConnected] = useState(false);
   const [error, setError] = useState('');
+  const [winnerAmount, setWinnerAmount] = useState('');
+  const [winnerAddress, setWinnerAddress] = useState('');
+  const [showWinnerModal, setShowWinnerModal] = useState(false);
 
   const loadBlockchainData = async () => {
     if (!window.ethereum) {
@@ -44,7 +47,7 @@ function HomePage() {
       const signer = await provider.getSigner();
       const contract = getContract(signer);
 
-      const tx = await contract.enter({ value: ethers.parseEther("0.01") });
+      const tx = await contract.enter({ value: ethers.parseEther("1") });
       await tx.wait();
       alert("🎉 You entered the lottery!");
       loadBlockchainData();
@@ -60,10 +63,17 @@ function HomePage() {
       const signer = await provider.getSigner();
       const contract = getContract(signer);
 
+      const potBeforePicking = await contract.getBalance();
+      const formattedPot = ethers.formatEther(potBeforePicking);
+      setWinnerAmount(formattedPot);
+
       const tx = await contract.pickWinner();
       await tx.wait();
 
-      alert(`🎊 Winner picked!`);
+      const winner = await contract.lastWinner();
+      setWinnerAddress(winner);
+
+      setShowWinnerModal(true);
       loadBlockchainData();
     } catch (err) {
       console.error("Error picking winner:", err);
@@ -82,6 +92,37 @@ function HomePage() {
 
   return (
     <>
+      {showWinnerModal && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          width: '100vw',
+          height: '100vh',
+          backgroundColor: 'rgba(0,0,0,0.75)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 999
+        }}>
+          <div style={{
+            backgroundColor: '#fff',
+            padding: '2rem',
+            borderRadius: '10px',
+            textAlign: 'center',
+            maxWidth: '450px',
+            boxShadow: '0 4px 10px rgba(0,0,0,0.3)'
+          }}>
+            <h2>🎉 Winner Picked!</h2>
+            <p><strong>Address:</strong> {winnerAddress}</p>
+            <p><strong>Amount:</strong> {winnerAmount} ETH</p>
+            <button onClick={() => setShowWinnerModal(false)} style={{ marginTop: '1rem' }}>
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+
       {!isConnected ? (
         <>
           <p><strong>Account:</strong> Not connected</p>
@@ -92,7 +133,7 @@ function HomePage() {
         <>
           <p><strong>Account:</strong> {account}</p>
           <p><strong>Pot:</strong> {balance} ETH</p>
-          <button onClick={enterLottery}>💸 Enter Lottery (0.01 ETH)</button>
+          <button onClick={enterLottery}>💸 Enter Lottery (1 ETH)</button>
           {account.toLowerCase() === manager.toLowerCase() && (
             <button onClick={pickWinner} style={{ marginTop: '1rem', marginLeft: '1rem' }}>
               🏆 Pick Winner (Manager Only)
