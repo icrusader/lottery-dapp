@@ -29,7 +29,7 @@ npm install ethers vite
 
 ---
 
-## Setup Instructions (After Cloning)
+## Setup Instructions (After Installed Prerequisites)
 
 ### 1. Clone the Repository
 
@@ -115,7 +115,7 @@ contract Lottery {
 
 ### 5. Run Local Blockchain
 
-In a **separate terminal**:
+In a **separate terminal inside lottery-dapp directory**:
 
 ```bash
 npx hardhat node
@@ -125,7 +125,7 @@ npx hardhat node
 
 ### 6. Deploy the Smart Contract
 
-In the **main terminal**:
+In the **main terminal inside lottery-dapp directory**:
 
 ```bash
 npx hardhat run scripts/deploy.cjs --network localhost
@@ -136,7 +136,7 @@ Copy the deployed contract address if it differs from the one in the frontend
 
 ---
 
-### 7. Start the Frontend App
+### 7. Start the Frontend App in lottery-dapp directory
 
 ```bash
 npm run dev
