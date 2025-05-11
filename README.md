@@ -29,7 +29,7 @@ npm install ethers vite
 
 ---
 
-## 🚀 Setup Instructions (After Cloning)
+## Setup Instructions (After Cloning)
 
 ### 1. Clone the Repository
 
