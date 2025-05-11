@@ -144,7 +144,7 @@ npm run dev
 
 ---
 
-## 💡 Notes
+## Notes
 
 - Make sure MetaMask is connected to the Hardhat local network.
 - Use one of the accounts provided by `npx hardhat node` for testing.
