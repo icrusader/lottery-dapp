@@ -1,18 +1,18 @@
-# 🎟️ Lottery DApp
+# Lottery DApp
 
 This guide walks you through setting up and running the Lottery DApp on WSL2  
 by **Dat Truong** and **Matteo Gristina**.
 
 ---
 
-## ✅ Prerequisites (Host Machine)
+## Prerequisites (Host Machine)
 
 Before cloning or running the project, ensure the following are installed on your system:
 
 - **Node.js v22** installed via `nvm`
 - **MetaMask** extension installed in your browser
 
-### 🔧 Install Node.js via NVM (if not installed)
+### Install Node.js via NVM (if not installed)
 
 ```bash
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.2/install.sh | bash
@@ -21,7 +21,7 @@ nvm install 22
 nvm use 22
 ```
 
-### 📦 Install Global Packages
+### Install Global Packages
 
 ```bash
 npm install ethers vite
