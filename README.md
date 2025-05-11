@@ -78,7 +78,7 @@ contract Lottery {
     }
 
     function enter() public payable {
-        require(msg.value >= .01 ether, "Minimum entry: 0.01 ETH");
+        require(msg.value >= 1 ether, "Minimum entry: 1 ETH");
         players.push(msg.sender);
     }
 
