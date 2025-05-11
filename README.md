@@ -56,7 +56,6 @@ npx hardhat init
 
 When prompted, choose the options as shown below:
 
-📸 Example:
 ![Hardhat Init Prompt](./assets/image.png)
 
 ---
