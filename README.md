@@ -60,7 +60,35 @@ When prompted, choose the options as shown below:
 
 ---
 
-### 4. Replace Contract Code
+### 4. Change Hardhat Config
+
+Overwrite the contents of `hardhat.config.cjs` with:
+
+```cjs
+require("@nomicfoundation/hardhat-toolbox");
+
+/** @type import('hardhat/config').HardhatUserConfig */
+module.exports = {
+  solidity: "0.8.28",
+  networks: {
+    hardhat: {
+      // Configuration for the 'npx hardhat node'
+      accounts: {
+        // Default balance for all accounts when Hardhat Network creates them
+        accountsBalance: "2000000000000000000", // 2 ETH in Wei
+        count: 20,  // 20 accounts
+      },
+    }
+  }
+};
+
+```
+
+This makes 20 accounts on the local blockchain network, and initilizes each with 2 ETH. Make sure to save the file.
+
+---
+
+### 5. Replace Contract Code
 
 Overwrite the contents of `contracts/Lock.sol` with:
 
@@ -113,7 +141,7 @@ contract Lottery {
 
 ---
 
-### 5. Run Local Blockchain
+### 6. Run Local Blockchain
 
 In a **separate terminal inside lottery-dapp directory**:
 
@@ -123,7 +151,7 @@ npx hardhat node
 
 ---
 
-### 6. Deploy the Smart Contract
+### 7. Deploy the Smart Contract
 
 In the **main terminal inside lottery-dapp directory**:
 
@@ -136,7 +164,7 @@ Copy the deployed contract address if it differs from the one in the frontend
 
 ---
 
-### 7. Start the Frontend App in lottery-dapp directory
+### 8. Start the Frontend App in lottery-dapp directory
 
 ```bash
 npm run dev
@@ -148,4 +176,3 @@ npm run dev
 
 - Make sure MetaMask is connected to the Hardhat local network.
 - Use one of the accounts provided by `npx hardhat node` for testing.
-
